@@ -1266,7 +1266,8 @@ export class Mastra<
     // an enterprise license key is configured. Fire-and-forget: LicenseClient
     // caches the result, schedules revalidation, and fails open on network
     // errors, so this never blocks or throws during construction.
-    if (process.env.MASTRA_LICENSE_KEY || process.env.MASTRA_EE_LICENSE) {
+    const licenseKey = process.env.MASTRA_LICENSE_KEY || process.env.MASTRA_EE_LICENSE;
+    if (licenseKey && licenseKey !== 'undefined' && licenseKey !== 'null') {
       LicenseClient.getInstance(this.#logger)
         .validate()
         .catch(() => {

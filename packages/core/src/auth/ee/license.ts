@@ -50,7 +50,8 @@ export interface SafeLicenseSummary {
  * `MASTRA_LICENSE_KEY` is primary; `MASTRA_EE_LICENSE` is a supported legacy alias.
  */
 function getLicenseKey(): string | undefined {
-  return process.env['MASTRA_LICENSE_KEY'] || process.env['MASTRA_EE_LICENSE'];
+  const key = process.env['MASTRA_LICENSE_KEY'] || process.env['MASTRA_EE_LICENSE'];
+  return key && key !== 'undefined' && key !== 'null' ? key : undefined;
 }
 
 let validationStarted = false;
